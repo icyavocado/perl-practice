@@ -1,14 +1,24 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Timer::Runtime;
 
 my $filename = 'input.txt';
-my (@list, $found);
+my (@list, $two, $three, $found);
 open(my $fh, '<:encoding(UTF-8)', $filename) or die "Could not open file '$filename' $!";
-while (<$fh>) {
-  chomp $_;
+while (<$fh>) { 
+  chomp; 
   push @list, $_;
+}
+
+foreach (@list) {
+  my %seen;
+  $seen{$_}++ foreach split(//, $_);
+  foreach (keys %seen) {
+    if ($seen{$_} == 2) { $two++; last; }
+  }
+  foreach (keys %seen) {
+    if ($seen{$_} == 3) { $three++; last; }
+  }
 }
 
 while (@list && !$found) {
@@ -28,4 +38,6 @@ while (@list && !$found) {
   }
 }
 
-print $found;
+print "Part 1: ".$two * $three."\n";
+
+print "Part 2: ".$found;
