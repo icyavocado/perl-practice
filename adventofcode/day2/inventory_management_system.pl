@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Timer::Runtime;
 
 my $filename = 'input.txt';
 my (@list, $two, $three, $found);
