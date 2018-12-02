@@ -16,14 +16,14 @@ while (@list) {
   foreach (@list) {
     my @id_comp = split(//, $_);
     my ($count, $char) = (0, undef);
-    for(my $i = 0; $i < scalar @id && $count > 1; $i++) {
+    for(my $i = 0; $i < scalar @id; $i++) {
       if ($id[$i] ne $id_comp[$i]) {
         $char = $i;
         $count++;
       }
+      last if $count > 1
     }
     splice @id, $char, 1 if $count == 1;
-    print join('', @id)."\n" if $count == 1;
-    last if $count == 1;
+    print join('', @id)."\n" if $count == 1
   }
 }
