@@ -6,8 +6,9 @@ use Timer::Runtime;
 my $filename = 'input.txt';
 my (@list, $two, $three);
 open(my $fh, '<:encoding(UTF-8)', $filename) or die "Could not open file '$filename' $!";
-while (<$fh>) {
-  chomp; push @list, $_;
+while (<$fh>) { 
+  chomp; 
+  push @list, $_;
 }
 
 foreach (@list) {
