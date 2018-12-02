@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Timer::Runtime;
 
 my $filename = 'input.txt';
 my (@list, $two, $three);
@@ -13,15 +12,12 @@ while (<$fh>) {
 
 foreach (@list) {
   my %seen;
-  my $box_id = $_;
-  foreach my $letter (split(//, $box_id)) {
-    $seen{$letter}++;
+  $seen{$_}++ foreach split(//, $_);
+  foreach (keys %seen) {
+    if ($seen{$_} == 2) { $two++; last; }
   }
-  foreach my $key (sort(keys %seen)) {
-    if ($seen{$key} == 2) { $two++; last; }
-  }
-  foreach my $key (sort(keys %seen)) {
-    if ($seen{$key} == 3) { $three++; last; }
+  foreach (keys %seen) {
+    if ($seen{$_} == 3) { $three++; last; }
   }
 }
 
