@@ -17,7 +17,6 @@ while (!$found) {
     $seen{$sum2}++;
     if ($seen{$sum2} && $seen{$sum2} == 2) {
       $found = $sum2;
-      last;
     }
   }
 }
