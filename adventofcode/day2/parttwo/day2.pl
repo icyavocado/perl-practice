@@ -4,14 +4,14 @@ use warnings;
 use Timer::Runtime;
 
 my $filename = 'input.txt';
-my (@list, @letter);
+my (@list, $found);
 open(my $fh, '<:encoding(UTF-8)', $filename) or die "Could not open file '$filename' $!";
 while (<$fh>) {
   chomp $_;
   push @list, $_;
 }
 
-while (@list) {
+while (@list && !$found) {
   my @id = split(//, shift @list);
   foreach (@list) {
     my @id_comp = split(//, $_);
@@ -24,6 +24,8 @@ while (@list) {
       last if $count > 1
     }
     splice @id, $char, 1 if $count == 1;
-    print join('', @id)."\n" if $count == 1
+    $found = join('', @id)."\n" if $count == 1
   }
 }
+
+print $found;
