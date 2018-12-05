@@ -29,15 +29,11 @@ foreach (@list) {
   }
 }
 
-my $found = 0;
 my $idguy = 0;
+my $found = 0;
 foreach my $id ( keys %guards ) {
   my $guard_sleep = 0;
-  for my $i ( 0 .. 59 ) {
-    if ( $guards{$id}{$i} ) {
-      $guard_sleep += $guards{$id}{$i};
-    }
-  }
+  for ( 0 .. 59 ) { $guard_sleep += $guards{$id}{$_} if ( $guards{$id}{$_} ) }
   if ( $guard_sleep > $found ) {
     $found = $guard_sleep;
     $idguy = $id;
@@ -46,27 +42,18 @@ foreach my $id ( keys %guards ) {
 
 my $most_min = 0;
 my $last;
-foreach my $min ( keys %{ $guards{$idguy} } ) {
-  for my $i ( 0 .. 59 ) {
-    if ( $guards{$idguy}{$i} && $guards{$idguy}{$i} > $most_min ) {
-      $most_min = $guards{$idguy}{$i};
-      $last     = $i;
-    }
-  }
-}
-
-foreach my $min ( keys %{ $guards{$idguy} } ) {
-  for my $i ( 0 .. 59 ) {
-    if ( $guards{$idguy}{$i} && $guards{$idguy}{$i} > $most_min ) {
-      $most_min = $guards{$idguy}{$i};
-      $last     = $i;
-    }
-  }
-}
-
 my $guy          = 0;
 my $best_sleeper = 0;
 my $best_min     = 0;
+foreach my $min ( keys %{ $guards{$idguy} } ) {
+  for my $i ( 0 .. 59 ) {
+    if ( $guards{$idguy}{$i} && $guards{$idguy}{$i} > $most_min ) {
+      $most_min = $guards{$idguy}{$i};
+      $last     = $i;
+    }
+  }
+}
+
 foreach my $id ( keys %guards ) {
   my $guard_sleep = 0;
   my $win         = 0;
